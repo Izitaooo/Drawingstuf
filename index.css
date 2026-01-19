@@ -2,6 +2,7 @@ body {
     padding: 0;
     margin: 0;
     height: 100vh;
+    cursor: url(images/redCro.png), default;
 }
 
 *{
@@ -15,13 +16,12 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: indianred;
+    background: #050505;
 }
 
 #myCanvas {
     width: 100vw;
     height: 100vh;
-
 }
 
 #pointHolder{
@@ -40,4 +40,29 @@ h1 {
     font-style: normal;
     text-align: left;
     color: yellow;
+}
+
+#buttonHolder{
+    width: 15vw;
+    height: 30vh;
+    position: absolute;
+    right: 2vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 2vh;
+}
+
+#buttonHolder div{
+    background-color: #ffffb3;
+    width: 100%;
+    height: 6vh;
+    text-align: center;
+    line-height: 6vh;
+    border-radius: 0.3vw;
+    font-size: 3vw;
+    font-family: "lores-28", sans-serif;
+    font-weight: 400;
+    font-style: normal;
 }

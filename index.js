@@ -2,7 +2,7 @@ const img = new Image();
 img.src = "images/coolguy.png"; // ← put your image path here
 
 let x = -100;
-let y = 500;
+let y = getRandom(250, 800);
 let speed = 5;
 
 let change = 0;
@@ -10,7 +10,13 @@ let direction = 0;
 
 let upnDown = 3;
 
+
+
 const c = document.getElementById("myCanvas");
+let btn1 = document.getElementById("button1");
+let btn2 = document.getElementById("button2");
+btn2.style.background = "yellow";
+let btn3 = document.getElementById("button3");
 c.width = c.clientWidth;
 c.height = c.clientHeight;
 const ctx = c.getContext("2d");
@@ -18,6 +24,28 @@ const ctx = c.getContext("2d");
 img.onload = () => {
     setInterval(changePosition, 15);
 };
+
+btn1.addEventListener("click", (event) => {
+    speed = 2;
+    console.log("maura");
+    btn1.style.background = "yellow";
+    btn2.style.background = "#ffffb3";
+    btn3.style.background = "#ffffb3";
+})
+btn2.addEventListener("click", (event) => {
+    speed = 5;
+    btn1.style.background = "#ffffb3";
+    btn2.style.background = "yellow";
+    btn3.style.background = "#ffffb3";
+
+})
+btn3.addEventListener("click", (event) => {
+    speed = 8;
+    btn1.style.background = "#ffffb3";
+    btn2.style.background = "#ffffb3";
+    btn3.style.background = "yellow";
+})
+
 
 function changePosition() {
     ctx.clearRect(0, 0, c.width, c.height);
@@ -33,23 +61,33 @@ function changePosition() {
 
     ctx.drawImage(img, x - 80, y - 80, 160, 160);
 
+    yMax = window.innerHeight - 80
+
+
     ctx.restore();
     change += 1;
 
+
     if(x >= c.width + 100){
         x = -100
-        y = 500
+        y = getRandom(250, 800)
     }
 
     if(change === 10){
-        change = 0;
-        direction = Math.floor(Math.random() * 2)
-
-        if(direction === 0) {
-            upnDown = 7;
-        } else if (direction === 1) {
+        if(y > yMax){
             upnDown = -7;
+        } else if(y < 80){
+            upnDown = 7;
+        }else {
+            direction = Math.floor(Math.random() * 2)
+
+            if(direction === 0) {
+                upnDown = 7;
+            } else if (direction === 1) {
+                upnDown = -7;
+            }
         }
+        change = 0;
     }
 }
 
@@ -78,3 +116,7 @@ setInterval(() => {
         points.innerText = pointScore;
     }
 }, 1); // change 50 to control score speed
+
+function getRandom(min, max) {
+    return Math.random() * (max - min) + min;
+}
