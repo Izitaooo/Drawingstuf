@@ -6,12 +6,17 @@ let y = getRandom(250, 800);
 let speed = 5;
 
 let change = 0;
+let changeS = 0;
 let direction = 0;
 
 let upnDown = 3;
 let pointSpeed = 4;
 
 let pointCounter = 0;
+
+let radius = 80;
+
+let bet = 0;
 
 
 const c = document.getElementById("myCanvas");
@@ -61,21 +66,25 @@ function changePosition() {
     ctx.save();
 
     ctx.beginPath();
-    ctx.arc(x, y, 80, 0, Math.PI * 2);
+    ctx.arc(x, y, radius, 0, Math.PI * 2);
     ctx.clip();
 
-    ctx.drawImage(img, x - 80, y - 80, 160, 160);
+    ctx.drawImage(img, x - radius, y - radius, radius * 2, radius * 2);
 
-    yMax = window.innerHeight - 80
+    yMax = window.innerHeight - radius
 
 
     ctx.restore();
     change += 1;
+    changeS += 1;
+
+
 
 
     if(x >= c.width + 100){
         x = -100
         y = getRandom(250, 800)
+        radius = 80
     }
 
     if(change === 10){
@@ -93,6 +102,24 @@ function changePosition() {
             }
         }
         change = 0;
+    }
+
+    if(radius < 70 || radius > 160){
+        radius = radius
+    }  else {
+        if(bet === 0){
+            radius = radius + 1;
+        } else{
+            radius = radius - 1;
+        }
+    }
+
+
+     if(changeS === 15){
+
+         bet = Math.floor(Math.random() * 2);
+
+        changeS = 0;
     }
 
     pointCounter++;
@@ -116,7 +143,7 @@ c.addEventListener("mousemove", (e) => {
 function isMouseOverCircle() {
     const dx = mouseX - x;
     const dy = mouseY - y;
-    return Math.sqrt(dx * dx + dy * dy) <= 80;
+    return Math.sqrt(dx * dx + dy * dy) <= radius;
 }
 
 let pointScore = 0;
