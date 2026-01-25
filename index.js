@@ -9,7 +9,9 @@ let change = 0;
 let direction = 0;
 
 let upnDown = 3;
+let pointSpeed = 4;
 
+let pointCounter = 0;
 
 
 const c = document.getElementById("myCanvas");
@@ -31,12 +33,14 @@ btn1.addEventListener("click", (event) => {
     btn1.style.background = "yellow";
     btn2.style.background = "#ffffb3";
     btn3.style.background = "#ffffb3";
+    pointSpeed = 6
 })
 btn2.addEventListener("click", (event) => {
     speed = 5;
     btn1.style.background = "#ffffb3";
     btn2.style.background = "yellow";
     btn3.style.background = "#ffffb3";
+    pointSpeed = 3
 
 })
 btn3.addEventListener("click", (event) => {
@@ -44,6 +48,7 @@ btn3.addEventListener("click", (event) => {
     btn1.style.background = "#ffffb3";
     btn2.style.background = "#ffffb3";
     btn3.style.background = "yellow";
+    pointSpeed = 2
 })
 
 
@@ -89,6 +94,14 @@ function changePosition() {
         }
         change = 0;
     }
+
+    pointCounter++;
+
+    if (isMouseOverCircle() && pointCounter >= pointSpeed) {
+        pointScore++;
+        points.innerText = pointScore;
+        pointCounter = 0;
+    }
 }
 
 let mouseX = 0;
@@ -108,14 +121,6 @@ function isMouseOverCircle() {
 
 let pointScore = 0;
 const points = document.getElementById("points");
-
-setInterval(() => {
-    if (isMouseOverCircle()) {
-        pointScore++;
-        console.log(pointScore);
-        points.innerText = pointScore;
-    }
-}, 1); // change 50 to control score speed
 
 function getRandom(min, max) {
     return Math.random() * (max - min) + min;
